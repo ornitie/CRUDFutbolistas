@@ -16,17 +16,19 @@ public class Futbolista {
     
     private String cedula, nombre;
     private double estatura;
-    private int edad;
+    private String posicion;
     private String fechaNacimiento;
+    private int dorsal;
 
     public Futbolista() {
     }
-    public Futbolista(String cedula, String nombre, double estatura, int edad, String fechaNacimiento) {
+    public Futbolista(String cedula, String nombre, double estatura, String posicion, String fechaNacimiento, int dorsal) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.estatura = estatura;
-        this.edad = edad;
+        this.posicion = posicion;
         this.fechaNacimiento = fechaNacimiento;
+        this.dorsal = dorsal;
     }
     public String getCedula() {
         return cedula;
@@ -46,11 +48,11 @@ public class Futbolista {
     public void setEstatura(double estatura) {
         this.estatura = estatura;
     }
-    public int getEdad() {
-        return edad;
+    public String getPosicion() {
+        return posicion;
     }
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setEdad(String posicion) {
+        this.posicion = posicion;
     }
     public String getFechaNacimiento() {
         return fechaNacimiento;
@@ -58,4 +60,11 @@ public class Futbolista {
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+    public int getDorsal() {
+        return dorsal;
+    }
+    public void setDorsal(int dorsal) {
+        this.dorsal = dorsal;
+    }
+    
 }
