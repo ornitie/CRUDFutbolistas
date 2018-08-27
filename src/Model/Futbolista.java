@@ -6,8 +6,6 @@
 
 package Model;
 
-import java.sql.Date;
-
 /**
  *
  * @author usuario

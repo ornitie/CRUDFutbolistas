@@ -20,14 +20,15 @@ import java.util.logging.Logger;
  * @author usuario
  */
 public class ServicioFutbolista {
-    Conexion conexion;
+    
+    private Conexion conexion;
 
     public ServicioFutbolista() {
         conexion = new Conexion();
-        buscar("123456789");
-        listar();
+    }
+    
+    public void cerrarConexion(){
         conexion.closeConecction();
-        
     }
     
     public void insertar(Futbolista f){
@@ -74,10 +75,6 @@ public class ServicioFutbolista {
             Logger.getLogger(ServicioFutbolista.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
-    }
-    
-    public static void main(String[] args){
-        ServicioFutbolista sf = new ServicioFutbolista();
     }
     
 }
