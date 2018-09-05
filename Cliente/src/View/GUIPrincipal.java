@@ -5,7 +5,10 @@
  */
 package View;
 
+import Model.IServicios;
 import Model.ServicioFutbolista;
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -16,11 +19,11 @@ import javax.swing.JOptionPane;
 public class GUIPrincipal extends javax.swing.JFrame {
 
     private ArrayList<IVentanas> hijos;
-    private ServicioFutbolista s;
+    private IServicios s;
     /**
      * Creates new form Principal
      */
-    public GUIPrincipal(ServicioFutbolista s) {
+    public GUIPrincipal(IServicios s) {
         initComponents();
         this.s = s;
         hijos = new ArrayList<IVentanas>();
@@ -202,8 +205,21 @@ public class GUIPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
-          new GUIPrincipal(new ServicioFutbolista()).setVisible(true);
+        //Direccion IP del equipo doonde se ejecute esta aplicacion Servidor
+        String dbHost = "127.0.0.1";
+        try {
+            if (args.length > 0) {
+                dbHost = args[0];
+            }
+            //puerto donde recide el servidor (model)
+            LocateRegistry.createRegistry(1099);
+            IServicios model = new ServicioFutbolista();
+            Naming.rebind("//" + dbHost + "/AplicacionEstudiante", model);
+            System.out.println("Objeto Model en el servidor...");
+            new GUIPrincipal(model).setVisible(true);
+        } catch (Exception e) {
+            System.out.println("Eror: " + e.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
