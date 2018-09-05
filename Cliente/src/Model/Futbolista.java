@@ -6,13 +6,16 @@
 
 package Model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author usuario
  */
-public class Futbolista {
+public class Futbolista implements Serializable{
+    
+    public static long SerialUID = 1L;
     
     private String cedula, nombre;
     private double estatura;

@@ -15,22 +15,24 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.rmi.server.*;
+import java.rmi.*;
 
 /**
  *
  * @author usuario
  */
-public class ServicioFutbolista {
+public class ServicioFutbolista extends UnicastRemoteObject implements IServicios{
     
     private Conexion conexion;
     private ArrayList<IVentanas> hijos;
 
-    public ServicioFutbolista() {
+    public ServicioFutbolista() throws RemoteException{
         conexion = new Conexion();
         hijos = new ArrayList<>();
     }
     
-    public void agregarHijos(IVentanas hijo){
+    public void agregarHijos(IVentanas hijo) throws RemoteException{
         hijos.add(hijo);
     }
     
@@ -38,39 +40,30 @@ public class ServicioFutbolista {
         conexion.closeConecction();
     }
     
-    public void insertar(Futbolista f){
+    public void insertar(Futbolista f) throws RemoteException{
        boolean r = conexion.executeUpdateStatement("INSERT INTO FUTBOLISTAS VALUES('"+
                 f.getCedula()+"','"+f.getNombre()+"',"+f.getEstatura()+",'"+
                 f.getPosicion()+"', TO_DATE('"+f.getFechaNacimiento().toString()+"','YYYY-MM-DD'),"+f.getDorsal()+","+f.getPeso()+")");
-       System.out.println("INSERT INTO FUTBOLISTAS VALUES('"+
-                f.getCedula()+"','"+f.getNombre()+"',"+f.getEstatura()+",'"+
-                f.getPosicion()+"', TO_DATE('"+f.getFechaNacimiento().toString()+"','YYYY-MM-DD'),"+f.getDorsal()+","+f.getPeso()+")");
-       for(IVentanas i:hijos){
-            i.ActualizarJugador();
-        }
+       cambio();
         if(r) JOptionPane.showMessageDialog(null, "Se agregó satisfactoriamente");
     }
     
-    public void actualizar(Futbolista f){
+    public void actualizar(Futbolista f) throws RemoteException{
         boolean r =conexion.executeUpdateStatement("UPDATE FUTBOLISTAS SET NOMBRE='"+f.getNombre()
                 +"', ESTATURA="+f.getEstatura()+", POSICION = '"+f.getPosicion()+
                 "', FECHA_NACIMIENTO = TO_DATE('"+f.getFechaNacimiento().toString()+
                 "','YYYY-MM-DD'), DORSAL = "+f.getDorsal()+", PESO="+f.getPeso()+" WHERE CEDULA = '"+f.getCedula()+"'");
-        for(IVentanas i:hijos){
-            i.ActualizarJugador();
-        }
+        cambio();
         if(r) JOptionPane.showMessageDialog(null, "Se actualizó satisfactoriamente");
     }
     
-    public void eliminar(String id){
+    public void eliminar(String id) throws RemoteException{
         boolean r = conexion.executeUpdateStatement("DELETE FROM FUTBOLISTAS WHERE CEDULA = '"+id+"'");
-        for(IVentanas i:hijos){
-            i.ActualizarJugador();
-        }
+        cambio();
         if(r) JOptionPane.showMessageDialog(null, "Se eliminó satisfactoriamente");
     }
     
-    public Futbolista buscar(String id){
+    public Futbolista buscar(String id) throws RemoteException{
         ResultSet rs = conexion.executeQueryStatement("SELECT * FROM FUTBOLISTAS WHERE CEDULA = '"+id+"'");
         try {
             while(rs.next()){
@@ -83,7 +76,7 @@ public class ServicioFutbolista {
         return null;
     }
     
-    public List<Futbolista> listar(){
+    public List<Futbolista> listar() throws RemoteException{
         List<Futbolista> lista = new ArrayList<>();
         ResultSet rs = conexion.executeQueryStatement("SELECT * FROM FUTBOLISTAS");
         try {
@@ -97,6 +90,15 @@ public class ServicioFutbolista {
         return lista;
     }
     
+    private void cambio(){
+        for(IVentanas i:hijos){
+            try {
+                i.ActualizarJugador();
+            } catch (RemoteException ex) {
+                Logger.getLogger(ServicioFutbolista.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
     
 }

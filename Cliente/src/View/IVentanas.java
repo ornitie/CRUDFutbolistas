@@ -5,11 +5,14 @@
  */
 package View;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author Personal
  */
-public interface IVentanas {
+public interface IVentanas extends Remote{
     
-     void ActualizarJugador();
+     void ActualizarJugador() throws RemoteException;
 }
