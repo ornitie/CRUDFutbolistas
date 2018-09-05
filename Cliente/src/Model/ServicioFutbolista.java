@@ -7,13 +7,14 @@
 package Model;
 
 import DB.Conexion;
+import View.IVentanas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,9 +23,15 @@ import java.util.logging.Logger;
 public class ServicioFutbolista {
     
     private Conexion conexion;
+    private ArrayList<IVentanas> hijos;
 
     public ServicioFutbolista() {
         conexion = new Conexion();
+        hijos = new ArrayList<>();
+    }
+    
+    public void agregarHijos(IVentanas hijo){
+        hijos.add(hijo);
     }
     
     public void cerrarConexion(){
@@ -32,29 +39,43 @@ public class ServicioFutbolista {
     }
     
     public void insertar(Futbolista f){
-        conexion.executeUpdateStatement("INSERT INTO FUTBOLISTAS VALUES('"+
+       boolean r = conexion.executeUpdateStatement("INSERT INTO FUTBOLISTAS VALUES('"+
                 f.getCedula()+"','"+f.getNombre()+"',"+f.getEstatura()+",'"+
-                f.getPosicion()+"', TO_DATE('"+f.getFechaNacimiento()+"','DD/MM/YYYY'), "+f.getDorsal()+")");
+                f.getPosicion()+"', TO_DATE('"+f.getFechaNacimiento().toString()+"','YYYY-MM-DD'),"+f.getDorsal()+","+f.getPeso()+")");
+       System.out.println("INSERT INTO FUTBOLISTAS VALUES('"+
+                f.getCedula()+"','"+f.getNombre()+"',"+f.getEstatura()+",'"+
+                f.getPosicion()+"', TO_DATE('"+f.getFechaNacimiento().toString()+"','YYYY-MM-DD'),"+f.getDorsal()+","+f.getPeso()+")");
+       for(IVentanas i:hijos){
+            i.ActualizarJugador();
+        }
+        if(r) JOptionPane.showMessageDialog(null, "Se agregó satisfactoriamente");
     }
     
     public void actualizar(Futbolista f){
-        conexion.executeUpdateStatement("UPDATE FUTBOLISTAS SET NOMBRE='"+f.getNombre()
+        boolean r =conexion.executeUpdateStatement("UPDATE FUTBOLISTAS SET NOMBRE='"+f.getNombre()
                 +"', ESTATURA="+f.getEstatura()+", POSICION = '"+f.getPosicion()+
-                "', FECHA_NACIMIENTO = TO_DATE('"+f.getFechaNacimiento()+
-                "','DD/MM/YYYY'), DORSAL = "+f.getDorsal()+" WHERE CEDULA = '"+f.getCedula()+"'");
+                "', FECHA_NACIMIENTO = TO_DATE('"+f.getFechaNacimiento().toString()+
+                "','YYYY-MM-DD'), DORSAL = "+f.getDorsal()+", PESO="+f.getPeso()+" WHERE CEDULA = '"+f.getCedula()+"'");
+        for(IVentanas i:hijos){
+            i.ActualizarJugador();
+        }
+        if(r) JOptionPane.showMessageDialog(null, "Se actualizó satisfactoriamente");
     }
     
     public void eliminar(String id){
-        conexion.executeUpdateStatement("DELETE FROM FUTBOLISTAS WHERE CEDULA = '"+id+"'");
+        boolean r = conexion.executeUpdateStatement("DELETE FROM FUTBOLISTAS WHERE CEDULA = '"+id+"'");
+        for(IVentanas i:hijos){
+            i.ActualizarJugador();
+        }
+        if(r) JOptionPane.showMessageDialog(null, "Se eliminó satisfactoriamente");
     }
     
     public Futbolista buscar(String id){
         ResultSet rs = conexion.executeQueryStatement("SELECT * FROM FUTBOLISTAS WHERE CEDULA = '"+id+"'");
         try {
             while(rs.next()){
-                String fecha = new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("FECHA_NACIMIENTO"));
                 return new Futbolista(id, rs.getString("NOMBRE"), rs.getDouble("ESTATURA"), 
-                        rs.getString("POSICION"),fecha, rs.getInt("DORSAL"));
+                        rs.getString("POSICION"),rs.getDate("FECHA_NACIMIENTO"), rs.getInt("DORSAL"), rs.getDouble("PESO"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServicioFutbolista.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,14 +88,15 @@ public class ServicioFutbolista {
         ResultSet rs = conexion.executeQueryStatement("SELECT * FROM FUTBOLISTAS");
         try {
             while(rs.next()){
-                String fecha = new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("FECHA_NACIMIENTO"));
                 lista.add( new Futbolista(rs.getString("CEDULA"), rs.getString("NOMBRE"), rs.getDouble("ESTATURA"), 
-                        rs.getString("POSICION"),fecha, rs.getInt("DORSAL")) );
+                        rs.getString("POSICION"),rs.getDate("FECHA_NACIMIENTO"), rs.getInt("DORSAL"), rs.getDouble("PESO")) );
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServicioFutbolista.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }
+    
+    
     
 }

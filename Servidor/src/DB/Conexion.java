@@ -8,13 +8,12 @@ package DB;
 
 /**
  *
- * @author Juan Pablo Rodriguez
+ * @author usuario
  */
 import java.sql.*;
 
 public class Conexion {
-    
-        private Connection con;
+    private Connection con;
         private String user;
         private String password;
         private Statement stmt;
@@ -28,17 +27,11 @@ public class Conexion {
            conectar();
         }
 
-        /**
-         * 
-         */
         public Conexion() {
             this("futbolista","futbolista");
         }
 
         //Metodo para conectarce a una base de datos
-        /**
-         * 
-         */
         private void conectar(){
             try{
 
@@ -63,11 +56,6 @@ public class Conexion {
 
         //Metodo que permite ejecutar una consulta y retorna un objeto ResulSet con
         //los resultados.
-        /**
-         * 
-         * @param cad
-         * @return 
-         */
         public ResultSet executeQueryStatement(String cad){
             ResultSet res = null;
             try{
@@ -83,11 +71,6 @@ public class Conexion {
 
         //metodo que permite ejecutar una transaccion de insercion o actualizacion
         //o eliminacion
-        /**
-         * 
-         * @param cad
-         * @return 
-         */
         public boolean executeUpdateStatement(String cad){
             int r = 0;
             try{
@@ -96,12 +79,28 @@ public class Conexion {
                 System.out.println("Actualizacion realizada...  " + r);
                 //con.commit();
                 stmt.close();
+                if(r==0)return false;
                 return true;
             }catch(Exception ex){
                 System.out.println("No se pudo efectuar la grabacion..." + ex);
                 return false;
             }
         }
+
+        //Metodo para invocar un procedimiento almacenado
+        /*public void executeProcedure(String cadProc){
+            try{
+
+                CallableStatement proc =con.prepareCall("{ call " + cadProc + " }");
+                proc.execute();
+            }catch (SQLException e)
+            {
+                System.out.println("Problemas con la invocacion del procedimiento " + cadProc);
+            }
+        }*/
+
+
+        
 
         //Objeto que cierra la conexion con la base de datos.
         public void closeConecction(){

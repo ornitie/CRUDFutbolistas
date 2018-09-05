@@ -47,6 +47,8 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
         jLabel4 = new javax.swing.JLabel();
         txtDorsal = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txtPeso = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -92,6 +94,10 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
 
         jLabel5.setText("Fecha de Nacimiento");
 
+        txtPeso.setEnabled(false);
+
+        jLabel7.setText("Peso");
+
         jXDatePicker1.setEnabled(false);
 
         jMenu1.setText("Archivo");
@@ -126,23 +132,26 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNombre)
-                    .addComponent(txtCedula)
-                    .addComponent(txtPosicion)
-                    .addComponent(txtEstatura)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDorsal))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPeso)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPosicion, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtEstatura, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                    .addComponent(txtDorsal, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
@@ -170,13 +179,17 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
                     .addComponent(txtDorsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(27, 27, 27)
+                    .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(jButton1))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnAgregar))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -204,6 +217,7 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
             jXDatePicker1.setDate(null);
             txtPosicion.setText("");
             txtNombre.setText("");
+            txtPeso.setText("");
                 return;
         }
         txtDorsal.setText(f.getDorsal()+"");
@@ -216,6 +230,8 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
         txtPosicion.setEnabled(true);
         txtNombre.setText(f.getNombre());
         txtNombre.setEnabled(true);
+        txtPeso.setText(f.getPeso()+"");
+        txtPeso.setEnabled(true);
         btnAgregar.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -227,11 +243,13 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
             return;
         }try{
             double estatura = Double.parseDouble(txtEstatura.getText());
+            double peso = Double.parseDouble(txtPeso.getText());
             int dorsal = Integer.parseInt(txtDorsal.getText());
             java.util.Date fechaNacimiento = jXDatePicker1.getDate();
             java.sql.Date fechaSQL = new java.sql.Date(fechaNacimiento.getTime());
-            sj.actualizar(new Futbolista(cedula, nombre, estatura, posicion, fechaSQL, dorsal));
+            sj.actualizar(new Futbolista(cedula, nombre, estatura, posicion, fechaSQL, dorsal, peso));
         btnAgregar.setEnabled(false);
+        txtPeso.setEnabled(false);
         txtDorsal.setEnabled(false);
         txtEstatura.setEnabled(false);
         jXDatePicker1.setEnabled(false);
@@ -255,6 +273,7 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -265,6 +284,7 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
     private javax.swing.JTextField txtDorsal;
     private javax.swing.JTextField txtEstatura;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtPosicion;
     // End of variables declaration//GEN-END:variables
 

@@ -6,6 +6,8 @@
 
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author usuario
@@ -15,19 +17,31 @@ public class Futbolista {
     private String cedula, nombre;
     private double estatura;
     private String posicion;
-    private String fechaNacimiento;
     private int dorsal;
+    private Date fechaNacimiento;
+    private double peso;
 
     public Futbolista() {
     }
-    public Futbolista(String cedula, String nombre, double estatura, String posicion, String fechaNacimiento, int dorsal) {
+    public Futbolista(String cedula, String nombre, double estatura, String posicion, Date fechaNacimiento, int dorsal, double peso) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.estatura = estatura;
         this.posicion = posicion;
         this.fechaNacimiento = fechaNacimiento;
         this.dorsal = dorsal;
+        this.peso = peso;
     }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+    
+    
     public String getCedula() {
         return cedula;
     }
@@ -52,10 +66,10 @@ public class Futbolista {
     public void setEdad(String posicion) {
         this.posicion = posicion;
     }
-    public String getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
     public int getDorsal() {

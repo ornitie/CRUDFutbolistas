@@ -52,14 +52,14 @@ public class GUIListarJugador extends javax.swing.JFrame implements IVentanas{
 
             },
             new String [] {
-                "Cedula", "Nombre", "Estatura", "Fecha", "Dorsal", "Posicion"
+                "Cedula", "Nombre", "Estatura", "Fecha", "Dorsal", "Posicion", "Peso"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, true
+                false, true, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -152,7 +152,7 @@ public class GUIListarJugador extends javax.swing.JFrame implements IVentanas{
         DefaultTableModel model;
         for(Futbolista f: sj.listar()){
            model = (DefaultTableModel) jTable1.getModel();
-           model.addRow(new Object[]{f.getCedula(),f.getNombre(), f.getEstatura(), f.getFechaNacimiento(), f.getDorsal(), f.getPosicion()});
+           model.addRow(new Object[]{f.getCedula(),f.getNombre(), f.getEstatura(), f.getFechaNacimiento(), f.getDorsal(), f.getPosicion(), f.getPeso()});
         }
     }
 }
