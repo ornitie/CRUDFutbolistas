@@ -6,7 +6,10 @@
 package View;
 
 import Model.Futbolista;
-import Model.ServicioFutbolista;
+import Model.IServicios;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,11 +19,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GUIListarJugador extends javax.swing.JFrame implements IVentanas{
 
-   private ServicioFutbolista sj;
-    private GUIPrincipal p;
-    public GUIListarJugador(ServicioFutbolista s, GUIPrincipal p) {
+   private IServicios sj;
+    
+    public GUIListarJugador(IServicios s) {
         initComponents();
-        this.p = p;
         sj = s;
         listar();
     }  
@@ -149,10 +151,14 @@ public class GUIListarJugador extends javax.swing.JFrame implements IVentanas{
     }
     
     public void listar(){
-        DefaultTableModel model;
-        for(Futbolista f: sj.listar()){
-           model = (DefaultTableModel) jTable1.getModel();
-           model.addRow(new Object[]{f.getCedula(),f.getNombre(), f.getEstatura(), f.getFechaNacimiento(), f.getDorsal(), f.getPosicion(), f.getPeso()});
-        }
+       try {
+           DefaultTableModel model;
+           for(Futbolista f: sj.listar()){
+               model = (DefaultTableModel) jTable1.getModel();
+               model.addRow(new Object[]{f.getCedula(),f.getNombre(), f.getEstatura(), f.getFechaNacimiento(), f.getDorsal(), f.getPosicion(), f.getPeso()});
+           }
+       } catch (RemoteException ex) {
+           Logger.getLogger(GUIListarJugador.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 }

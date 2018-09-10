@@ -6,7 +6,10 @@
 package View;
 
 import Model.Futbolista;
-import Model.ServicioFutbolista;
+import Model.IServicios;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,13 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class GUIEliminarJugador extends javax.swing.JFrame implements IVentanas{
 
-    private ServicioFutbolista sj;
+    private IServicios sj;
      private GUIPrincipal p;
      private String cedula;
      
-   public GUIEliminarJugador(ServicioFutbolista s, GUIPrincipal p) {
+   public GUIEliminarJugador(IServicios s) {
         initComponents();
-        this.p = p;
         sj = s;
     }
 
@@ -206,37 +208,45 @@ public class GUIEliminarJugador extends javax.swing.JFrame implements IVentanas{
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        cedula = txtCedula.getText();
-        if(cedula.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Por favor ingrese una cedula");
-            return;
+        try {
+            cedula = txtCedula.getText();
+            if(cedula.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Por favor ingrese una cedula");
+                return;
+            }
+            Futbolista f = sj.buscar(cedula);
+            if(f == null){
+                JOptionPane.showMessageDialog(this, "No se halló al Futbolista");
+                txtDorsal.setText("");
+                txtEstatura.setText("");
+                txtFecha.setText("");
+                txtPosicion.setText("");
+                txtNombre.setText("");
+                txtPeso.setText("");
+                return;
+            }
+            txtDorsal.setText(f.getDorsal()+"");
+            txtEstatura.setText(f.getEstatura()+"");
+            txtFecha.setText(f.getFechaNacimiento().toString());
+            txtPosicion.setText(f.getPosicion());
+            txtNombre.setText(f.getNombre());
+            txtPeso.setText(f.getPeso()+"");
+            btnAgregar.setEnabled(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIEliminarJugador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Futbolista f = sj.buscar(cedula);
-        if(f == null){
-            JOptionPane.showMessageDialog(this, "No se halló al Futbolista");
-            txtDorsal.setText("");
-            txtEstatura.setText("");
-            txtFecha.setText("");
-            txtPosicion.setText("");
-            txtNombre.setText("");
-            txtPeso.setText("");
-            return;
-        }
-        txtDorsal.setText(f.getDorsal()+"");
-        txtEstatura.setText(f.getEstatura()+"");
-        txtFecha.setText(f.getFechaNacimiento().toString());
-        txtPosicion.setText(f.getPosicion());
-        txtNombre.setText(f.getNombre());
-        txtPeso.setText(f.getPeso()+"");
-        btnAgregar.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(this, "¿Esta Seguro de querer eliminar el registro?");
-        if(respuesta!=0)return;
-        sj.eliminar(cedula);
-        cedula="";
-        btnAgregar.setEnabled(false);
+        try {
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Esta Seguro de querer eliminar el registro?");
+            if(respuesta!=0)return;
+            sj.eliminar(cedula);
+            cedula="";
+            btnAgregar.setEnabled(false);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIEliminarJugador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     

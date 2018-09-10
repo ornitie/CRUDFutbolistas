@@ -3,12 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Cliente/src/DB/Conexion.java</file>
-            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Cliente/src/Model/Main.java</file>
-            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Cliente/src/Model/ServicioFutbolista.java</file>
-            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Cliente/src/Model/IServicios.java</file>
-            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Cliente/src/Model/Futbolista.java</file>
-            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Cliente/src/View/IVentanas.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/GUIPrincipal.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/ViewBuscarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/IVentanas.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/GUIListarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/ViewAgregarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/GUIEliminarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/Model/IServicios.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/GUIActualizarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/Model/Futbolista.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/ViewActualizarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/GUIAgregarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/ViewListarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/GUIBuscarJugador.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/Documents/NetBeansProjects/CRUDFutbolistas-master/CRUDFutbolistas-master/Servidor/src/View/ViewEliminarJugador.java</file>
         </group>
     </open-files>
 </project-private>

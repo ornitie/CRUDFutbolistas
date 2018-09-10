@@ -6,7 +6,10 @@
 package View;
 
 import Model.Futbolista;
-import Model.ServicioFutbolista;
+import Model.IServicios;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,13 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class GUIActualizarJugador extends javax.swing.JFrame implements IVentanas{
 
-  private ServicioFutbolista sj;
+  private IServicios sj;
      private GUIPrincipal p;
      private String cedula;
      
-   public GUIActualizarJugador(ServicioFutbolista s, GUIPrincipal p) {
+   public GUIActualizarJugador(IServicios s) {
         initComponents();
-        this.p = p;
         sj = s;
     }
 
@@ -204,35 +206,39 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        cedula = txtCedula.getText();
-        if(cedula.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Por favor ingrese una cedula");
-            return;
-        }
-        Futbolista f = sj.buscar(cedula);
-        if(f == null){
-            JOptionPane.showMessageDialog(this, "No se halló al Futbolista");
-             txtDorsal.setText("");
-            txtEstatura.setText("");
-            jXDatePicker1.setDate(null);
-            txtPosicion.setText("");
-            txtNombre.setText("");
-            txtPeso.setText("");
-                return;
-        }
-        txtDorsal.setText(f.getDorsal()+"");
-        txtDorsal.setEnabled(true);
-        txtEstatura.setText(f.getEstatura()+"");
-        txtEstatura.setEnabled(true);
-        jXDatePicker1.setDate(f.getFechaNacimiento());
-        jXDatePicker1.setEnabled(true);
-        txtPosicion.setText(f.getPosicion());
-        txtPosicion.setEnabled(true);
-        txtNombre.setText(f.getNombre());
-        txtNombre.setEnabled(true);
-        txtPeso.setText(f.getPeso()+"");
-        txtPeso.setEnabled(true);
-        btnAgregar.setEnabled(true);
+      try {
+          cedula = txtCedula.getText();
+          if(cedula.isEmpty()){
+              JOptionPane.showMessageDialog(this, "Por favor ingrese una cedula");
+              return;
+          }
+          Futbolista f = sj.buscar(cedula);
+          if(f == null){
+              JOptionPane.showMessageDialog(this, "No se halló al Futbolista");
+              txtDorsal.setText("");
+              txtEstatura.setText("");
+              jXDatePicker1.setDate(null);
+              txtPosicion.setText("");
+              txtNombre.setText("");
+              txtPeso.setText("");
+              return;
+          }
+          txtDorsal.setText(f.getDorsal()+"");
+          txtDorsal.setEnabled(true);
+          txtEstatura.setText(f.getEstatura()+"");
+          txtEstatura.setEnabled(true);
+          jXDatePicker1.setDate(f.getFechaNacimiento());
+          jXDatePicker1.setEnabled(true);
+          txtPosicion.setText(f.getPosicion());
+          txtPosicion.setEnabled(true);
+          txtNombre.setText(f.getNombre());
+          txtNombre.setEnabled(true);
+          txtPeso.setText(f.getPeso()+"");
+          txtPeso.setEnabled(true);
+          btnAgregar.setEnabled(true);
+      } catch (RemoteException ex) {
+          Logger.getLogger(GUIActualizarJugador.class.getName()).log(Level.SEVERE, null, ex);
+      }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed

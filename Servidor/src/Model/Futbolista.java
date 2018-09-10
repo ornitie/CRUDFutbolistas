@@ -16,6 +16,7 @@ import java.sql.Date;
 public class Futbolista implements Serializable{
     
     public static long SerialUID = 1L;
+    
     private String cedula, nombre;
     private double estatura;
     private String posicion;
