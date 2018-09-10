@@ -6,7 +6,10 @@
 package View;
 
 import Model.Futbolista;
-import Model.ServicioFutbolista;
+import Model.IServicios;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,12 +17,11 @@ import javax.swing.JOptionPane;
  * @author Personal
  */
 public class GUIBuscarJugador extends javax.swing.JFrame implements IVentanas{
-private ServicioFutbolista sj;
+private IServicios sj;
      private GUIPrincipal p;
      
-   public GUIBuscarJugador(ServicioFutbolista s, GUIPrincipal p) {
+   public GUIBuscarJugador(IServicios s) {
         initComponents();
-        this.p = p;
         sj = s;
     }
     /**
@@ -194,6 +196,7 @@ private ServicioFutbolista sj;
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    try {
         String cedula = txtCedula.getText();
         if(cedula.isEmpty()){
             JOptionPane.showMessageDialog(this, "Por favor ingrese una cedula");
@@ -202,12 +205,12 @@ private ServicioFutbolista sj;
         Futbolista f = sj.buscar(cedula);
         if(f == null){
             JOptionPane.showMessageDialog(this, "No se halló al Futbolista");
-        txtDorsal.setText("");
-        txtEstatura.setText("");
-        txtFecha.setText("");
-        txtPosicion.setText("");
-        txtNombre.setText("");
-        txtPeso.setText("");
+            txtDorsal.setText("");
+            txtEstatura.setText("");
+            txtFecha.setText("");
+            txtPosicion.setText("");
+            txtNombre.setText("");
+            txtPeso.setText("");
             return;
         }
         txtDorsal.setText(f.getDorsal()+"");
@@ -216,6 +219,9 @@ private ServicioFutbolista sj;
         txtPosicion.setText(f.getPosicion());
         txtNombre.setText(f.getNombre());
         txtPeso.setText(f.getPeso()+"");
+    } catch (RemoteException ex) {
+        Logger.getLogger(GUIBuscarJugador.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

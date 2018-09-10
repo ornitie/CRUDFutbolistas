@@ -5,8 +5,12 @@
  */
 package View;
 
-import Model.ServicioFutbolista;
+import Model.IServicios;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,11 +20,12 @@ import javax.swing.JOptionPane;
 public class GUIPrincipal extends javax.swing.JFrame {
 
     private ArrayList<IVentanas> hijos;
-    private ServicioFutbolista s;
+    private IServicios s;
+
     /**
      * Creates new form Principal
      */
-    public GUIPrincipal(ServicioFutbolista s) {
+    public GUIPrincipal(IServicios s) {
         initComponents();
         this.s = s;
         hijos = new ArrayList<IVentanas>();
@@ -136,7 +141,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        JOptionPane.showMessageDialog(this, "Desarrollado por:"+"\n"+"Juan Pablo rodriguez"+"\n"+"William Bueno");
+        JOptionPane.showMessageDialog(this, "Desarrollado por:" + "\n" + "Juan Pablo rodriguez" + "\n" + "William Bueno");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -144,67 +149,71 @@ public class GUIPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       GUIAgregarJugador aj = new GUIAgregarJugador(s, this);
-       aj.setVisible(true);
-       s.agregarHijos(aj);
+        try {
+            ViewAgregarJugador va = new ViewAgregarJugador(s);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       GUIListarJugador lj = new GUIListarJugador(s, this);
-       lj.setVisible(true);
-       s.agregarHijos(lj);
+        try {
+            ViewListarJugador vj = new ViewListarJugador(s);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-      GUIEliminarJugador ej = new GUIEliminarJugador(s, this);
-       ej.setVisible(true);
-       s.agregarHijos(ej);
-        
+        try {
+            ViewEliminarJugador ve = new ViewEliminarJugador(s);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       GUIActualizarJugador aj = new GUIActualizarJugador(s, this);
-       aj.setVisible(true);
-       s.agregarHijos(aj);
-        
+        try {
+            ViewActualizarJugador va = new ViewActualizarJugador(s);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       GUIBuscarJugador bj = new GUIBuscarJugador(s, this);
-       bj.setVisible(true);
-       s.agregarHijos(bj);
+        try {
+            ViewBuscarJugador vb = new ViewBuscarJugador(s);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        String rmiRegistryHost = "127.0.0.1";
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            if (args.length > 0) {
+                rmiRegistryHost = args[0];
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-          new GUIPrincipal(new ServicioFutbolista()).setVisible(true);
+            IServicios model = (IServicios) Naming.lookup("//"
+                    + rmiRegistryHost + "/CRUDFutbolistas");
+            if (model == null) {
+                System.out.println("Error... Cliente ");
+                return;
+            }
+            GUIPrincipal gui = new GUIPrincipal(model);
+            gui.setVisible(true);
+        } catch (Exception e) {
+            System.out.println("Error... " + e);
+        }
     }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

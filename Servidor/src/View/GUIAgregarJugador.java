@@ -6,7 +6,7 @@
 package View;
 
 import Model.Futbolista;
-import Model.ServicioFutbolista;
+import Model.IServicios;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,12 +15,11 @@ import javax.swing.JOptionPane;
  */
 public class GUIAgregarJugador extends javax.swing.JFrame implements IVentanas{
 
-     private ServicioFutbolista sj;
+     private IServicios sj;
      private GUIPrincipal p;
      
-   public GUIAgregarJugador(ServicioFutbolista s, GUIPrincipal p) {
+   public GUIAgregarJugador(IServicios s) {
         initComponents();
-        this.p = p;
         sj = s;
     }
     /**
@@ -179,14 +178,11 @@ public class GUIAgregarJugador extends javax.swing.JFrame implements IVentanas{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(13, 13, 13))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addComponent(btnAgregar)
                 .addContainerGap())
         );
