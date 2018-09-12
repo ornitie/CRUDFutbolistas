@@ -216,7 +216,7 @@ public class GUIEliminarJugador extends javax.swing.JFrame implements IVentanas{
             }
             Futbolista f = sj.buscar(cedula);
             if(f == null){
-                JOptionPane.showMessageDialog(this, "No se halló al Futbolista");
+                System.out.println( "No se halló al Futbolista");
                 txtDorsal.setText("");
                 txtEstatura.setText("");
                 txtFecha.setText("");

@@ -194,7 +194,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        String rmiRegistryHost = "127.0.0.1";
+        String rmiRegistryHost = "192.168.15.2";
         try {
             if (args.length > 0) {
                 rmiRegistryHost = args[0];
