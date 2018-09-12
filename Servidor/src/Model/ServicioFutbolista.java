@@ -45,7 +45,7 @@ public class ServicioFutbolista extends UnicastRemoteObject implements IServicio
                 f.getCedula()+"','"+f.getNombre()+"',"+f.getEstatura()+",'"+
                 f.getPosicion()+"', TO_DATE('"+f.getFechaNacimiento().toString()+"','YYYY-MM-DD'),"+f.getDorsal()+","+f.getPeso()+")");
        cambio();
-        if(r) JOptionPane.showMessageDialog(null, "Se agregó satisfactoriamente");
+        if(r) System.out.println( "Se agregó satisfactoriamente");
     }
     
     public void actualizar(Futbolista f) throws RemoteException{
@@ -54,13 +54,13 @@ public class ServicioFutbolista extends UnicastRemoteObject implements IServicio
                 "', FECHA_NACIMIENTO = TO_DATE('"+f.getFechaNacimiento().toString()+
                 "','YYYY-MM-DD'), DORSAL = "+f.getDorsal()+", PESO="+f.getPeso()+" WHERE CEDULA = '"+f.getCedula()+"'");
         cambio();
-        if(r) JOptionPane.showMessageDialog(null, "Se actualizó satisfactoriamente");
+        if(r) System.out.println(  "Se actualizó satisfactoriamente");
     }
     
     public void eliminar(String id) throws RemoteException{
         boolean r = conexion.executeUpdateStatement("DELETE FROM FUTBOLISTAS WHERE CEDULA = '"+id+"'");
         cambio();
-        if(r) JOptionPane.showMessageDialog(null, "Se eliminó satisfactoriamente");
+        if(r) System.out.println( "Se eliminó satisfactoriamente");
     }
     
     public Futbolista buscar(String id) throws RemoteException{

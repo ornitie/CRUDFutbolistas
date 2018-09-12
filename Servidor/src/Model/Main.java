@@ -25,7 +25,7 @@ public class Main {
      */
     public static void main(String[] args) {
 //Direccion IP del equipo doonde se ejecute esta aplicacion Servidor
-        String dbHost = "127.0.0.1";
+        String dbHost = "192.168.15.2";
         try {
             if (args.length > 0) {
                 dbHost = args[0];

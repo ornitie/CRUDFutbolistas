@@ -25,3 +25,4 @@ nbproject/project.properties
 hs_err_pid*
 /build/
 /Cliente/build/
+/Servidor/dist/
