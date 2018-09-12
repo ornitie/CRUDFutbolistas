@@ -214,7 +214,7 @@ public class GUIActualizarJugador extends javax.swing.JFrame implements IVentana
           }
           Futbolista f = sj.buscar(cedula);
           if(f == null){
-              JOptionPane.showMessageDialog(this, "No se halló al Futbolista");
+              System.out.println("No se halló al Futbolista");
               txtDorsal.setText("");
               txtEstatura.setText("");
               jXDatePicker1.setDate(null);
